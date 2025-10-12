@@ -1,0 +1,17 @@
+import type { Plugin } from 'vue';
+import { Label } from './components/Label';
+import { Button } from './components/Button';
+import { StackLayout } from './components/StackLayout';
+import { FlexboxLayout } from './components/FlexboxLayout';
+import { GridLayout } from './components/GridLayout';
+import { Page } from './components/Page';
+import { Frame } from './components/Frame';
+import { ActionBar } from './components/ActionBar';
+import { ActionItem } from './components/ActionItem';
+import { ImageCacheIt } from './components/ImageCacheIt';
+import { ContentView } from './components/ContentView';
+import { ListView } from './components/ListView';
+import { TabView } from './components/TabView';
+import { TabViewItem } from './components/TabViewItem';
+export declare const NativeScriptWebPlugin: Plugin;
+export { Label, Button, StackLayout, FlexboxLayout, GridLayout, Page, Frame, ActionBar, ActionItem, ImageCacheIt, ContentView, ListView, TabView, TabViewItem };

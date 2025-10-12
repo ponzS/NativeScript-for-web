@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/types",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2018",
+    "lib": ["es2018", "dom"],
+    "skipLibCheck": true,
+    "baseUrl": "."
+  },
+  "include": ["src"]
+}

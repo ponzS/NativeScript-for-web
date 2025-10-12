@@ -1,0 +1,172 @@
+
+:root {
+  --ns-action-bar-height: 56px;
+  --ns-tab-bar-height: 52px;
+}
+
+.ns-frame {
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+}
+
+
+.ns-image-cache-it {
+
+  width: 100%;
+  object-fit: cover;
+  
+}
+
+.ns-image-cache-it { 
+   width: 100%;
+ 
+
+}
+
+
+.ns-page {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.ns-page > :not(.ns-action-bar) {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.ns-action-bar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: var(--ns-action-bar-height);
+  flex: 0 0 var(--ns-action-bar-height);
+  padding: 0 16px;
+  
+}
+
+.ns-action-item {
+  display: flex;
+  align-items: center;
+}
+
+.ns-stack-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.ns-flexbox-layout {
+  display: flex;
+}
+
+.ns-grid-layout {
+  display: grid;
+}
+
+.ns-label {
+  display: inline-block;
+}
+
+.ns-button {
+
+
+  cursor: pointer;
+
+
+}
+
+.ns-button:active {
+  filter: brightness(0.98);
+}
+
+
+.ns-dock-layout {
+
+  display: flex;
+  flex-direction: column;
+}
+
+.ns-wrap-layout {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ns-absolute-layout,
+.ns-root-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ContentView */
+.ns-content-view {
+  display: block;
+}
+
+/* ListView */
+.ns-list-view {
+  display: block;
+  overflow: auto;
+}
+.ns-list-item {
+  display: block;
+}
+
+/* TabView layout and bottom bar */
+.ns-tab-view {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.ns-tab-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.ns-tab-bar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+  height: var(--ns-tab-bar-height);
+  flex: 0 0 var(--ns-tab-bar-height);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  background: rgba(136, 136, 136, 0.534);
+  position: sticky;
+  bottom: 0;
+  backdrop-filter: blur(8px);
+  
+}
+
+.ns-tab-bar-item {
+  flex: 1 1 0;
+  height: var(--ns-tab-bar-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ns-tab-bar-item.active {
+  color: #77c9fa;
+  font-weight: 600;
+}
+

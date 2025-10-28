@@ -1,0 +1,44 @@
+{
+  "name": "@nativescript/web-adapter",
+  "version": "1.0.0",
+  "description": "Web adapter for NativeScript applications",
+  "type": "module",
+  "main": "./dist/nativescript-web-adapter.umd.js",
+  "module": "./dist/nativescript-web-adapter.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/nativescript-web-adapter.es.js",
+      "require": "./dist/nativescript-web-adapter.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "create:web": "node tools/create-web-platform.cjs",
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "bin": {
+    "ns-web": "./tools/cli.js"
+  },
+  "files": [
+    "dist",
+    "tools",
+    "templates"
+  ],
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.0.0",
+    "vue-tsc": "^1.8.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
+}

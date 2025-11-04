@@ -11,6 +11,10 @@ This project is a “web adapter” for NativeScript‑Vue‑Vite. It can transf
 
 ## Quick Start
 
+```bash
+npm install nativescript-web-adapter
+```
+
 Temporarily add the local bin to `PATH` to make the `ns-web` command available:
 
 ```bash

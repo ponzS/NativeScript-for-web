@@ -36,6 +36,8 @@ Android
 ns run android
 ```
 
+模版 : https://github.com/ponzS/NS-Vue-Vite-Web-Native-Template
+
 ## 目录
 
 - 背景与目标

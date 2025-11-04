@@ -10,6 +10,10 @@
 
 ## 快速开始
 
+```bash
+npm install nativescript-web-adapter
+```
+
 临时把本地 bin 加入 PATH，使 `ns-web` 命令可用
 
 ```bash

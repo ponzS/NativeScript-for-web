@@ -82,7 +82,7 @@ function copySourceFiles(src, dest) {
 function transformContent(content) {
   // 将nativescript特定的导入替换为web版本
   content = content.replace(/from\s+['"](nativescript-vue)['"]/g, "from 'vue'");
-  content = content.replace(/from\s+['"]([@]nativescript\/core)['"]/g, "from '@nativescript/web-adapter'");
+  content = content.replace(/from\s+['"]([@]nativescript\/core)['"]/g, "from 'nativescript-web-adapter'");
   
   // 移除registerElement调用
   content = content.replace(/registerElement\([^)]+\);?\n?/g, '// registerElement removed for web\n');
@@ -122,7 +122,7 @@ function createWebPlatformFiles(webDir) {
     },
     dependencies: {
       "vue": "^3.4.0",
-      "@nativescript/web-adapter": "file:../../nativescript-web-adapter"
+      "nativescript-web-adapter": "file:../../nativescript-web-adapter"
     },
     devDependencies: {
       "@vitejs/plugin-vue": "^5.0.0",
@@ -149,7 +149,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@nativescript/core': '@nativescript/web-adapter'
+      '@nativescript/core': 'nativescript-web-adapter'
     }
   },
   server: {

@@ -2,12 +2,8 @@
   <header class="ns-actionbar"><slot /></header>
 </template>
 
-<script lang="ts">
-import type { DefineComponent } from 'vue';
-
-export default {
-  name: 'ActionBar'
-} as DefineComponent;
+<script setup lang="ts">
+defineOptions({ name: 'ActionBar' });
 </script>
 
 <style scoped>

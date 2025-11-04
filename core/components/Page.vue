@@ -2,14 +2,17 @@
   <div class="ns-page"><slot /></div>
 </template>
 
-<script lang="ts">
-import type { DefineComponent } from 'vue';
-
-export default {
-  name: 'Page'
-} as DefineComponent;
+<script setup lang="ts">
+defineOptions({ name: 'Page' });
 </script>
 
 <style scoped>
-.ns-page { min-height: 100vh; display: block; }
+.ns-page { 
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  padding: 0px;
+}
 </style>

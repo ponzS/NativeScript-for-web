@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ActionBar {
+  background-color: #0b0b0b;
+  color: white;
+}
+
+
+.gradient-purple {
+  background: linear-gradient(to bottom, #0b0b0b, #000);
+}
+
+.gradient-light-purple {
+  background: linear-gradient(to bottom, #f5f5f5, #e5e5e5);
+}

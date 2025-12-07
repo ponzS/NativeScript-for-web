@@ -1,0 +1,44 @@
+{
+  "name": "ns-vue-vite-web-ios-demo",
+  "main": "src/app.ts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:ios": "concurrently -k -n vite,ns 'npm run dev:server:ios' 'wait-on tcp:5173 && npm run ios'",
+    "dev:android": "concurrently -k -n vite,ns 'npm run dev:server:android' 'wait-on tcp:5173 && npm run android'",
+    "dev:server:ios": "vite serve -- --env.ios --env.hmr",
+    "dev:server:android": "vite serve -- --env.android --env.hmr",
+    "add:vue": "npx ns-web vue",
+    "add:nuxt": "npx ns-web nuxt",
+    "dev:vue": "cd platforms/vue && npm run dev",
+    "dev:nuxt": "cd platforms/nuxt && npm run dev",
+    "install:vue": "cd platforms/vue && npm i",
+    "install:nuxt": "cd platforms/nuxt && npm i",
+    "ios": "ns debug ios",
+    "android": "ns debug android",
+    "postinstall": "patch-package"
+  },
+  "dependencies": {
+    "@nativescript/core": "alpha",
+    "@triniwiz/nativescript-image-cache-it": "^7.5.0",
+    "@valor/nativescript-websockets": "^2.0.2",
+    "nativescript-inappbrowser": "^3.2.0",
+    "nativescript-vue": "3.0.1"
+  },
+  "devDependencies": {
+    "@nativescript/android": "alpha",
+    "@nativescript/ios": "alpha",
+    "@nativescript/tailwind": "^2.1.0",
+    "@nativescript/types": "alpha",
+    "@nativescript/vite": "^0.0.1-alpha.7",
+    "@types/node": "^22.14.0",
+    "commander": "^14.0.2",
+    "concurrently": "^9.0.1",
+    "nativescript": "alpha",
+    "nativescript-web-adapter": "file:..",
+    "patch-package": "^8.0.1",
+    "tailwindcss": "~3.4.0",
+    "typescript": "~5.9.0",
+    "wait-on": "^7.2.0"
+  }
+}

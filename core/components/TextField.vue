@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'TextField' });
-const props = defineProps<{ text?: string }>();
+defineProps<{ text?: string }>();
 const emit = defineEmits<{ (e: 'update:text', v: string): void; (e: 'submit', v: string): void }>();
 function onInput(e: Event) { emit('update:text', (e.target as HTMLInputElement).value); }
 function onSubmit(e: KeyboardEvent) { emit('submit', (e.target as HTMLInputElement).value); }

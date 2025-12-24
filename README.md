@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/nativescript-web-adapter.svg?logo=npm&label=npm)](https://www.npmjs.com/package/nativescript-web-adapter)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-This project is a “web adapter” for NativeScript‑Vue‑Vite. It can transform native app code into a pure Vue Web project that runs in the browser (generated under `platforms/web/`).
+This project is a “web adapter” for NativeScript apps. It can transform native app code into a Web project that runs in the browser (generated under `platforms/<framework>/`).
 
 ---
 
@@ -15,12 +15,24 @@ This project is a “web adapter” for NativeScript‑Vue‑Vite. It can transf
 npm install nativescript-web-adapter
 ```
 
-Compile the web template – install dependencies – start the web project's dev server:
+Generate the web template – install dependencies – run the web project:
 
-vue
+vue (dev server)
 
 ```bash
 npx ns-web vue
+```
+
+angular (build)
+
+```bash
+npx ns-web angular
+```
+
+auto (build, detects framework from the project)
+
+```bash
+npx ns-web build
 ```
 
 nuxt
@@ -61,8 +73,8 @@ ns run android
 ## Background & Goals
 
 - Provide a native app example using `nativescript-vue` + `@nativescript/vite`, showcasing development and HMR on iOS/Android.
-- Provide a “web adapter” (local package `nativescript-web-adapter`) that scans and transforms the project's `src/` code to generate a Vue application that runs in the browser, enabling quick preview and collaboration on desktop browsers.
-- The generated Web project lives in `platforms/web/` with its own Vite config, dependencies, and entry files, without affecting the native side.
+- Provide a “web adapter” (local package `nativescript-web-adapter`) that scans and transforms the project's `src/` code to generate a Web application that runs in the browser (Vue or Angular), enabling quick preview and collaboration on desktop browsers.
+- The generated Web project lives in `platforms/<framework>/` with its own Vite config, dependencies, and entry files, without affecting the native side.
 
 ---
 
@@ -101,13 +113,15 @@ ns run android
 
 ---
 
-## Web Side (Generated Vue Project)
+## Web Side (Generated Web Project)
 
-- Output location: `platforms/web/`
+- Output location:
+  - Vue: `platforms/vue/`
+  - Angular: `platforms/angular/`
 - Example structure:
 
 ```
-platforms/web/
+platforms/vue/
   package.json          # generated (includes vue + vue-router)
   vite.config.ts        # generated (server.port = 3005, strictPort = true)
   index.html
@@ -124,6 +138,8 @@ platforms/web/
     composables/
       websfc/           # adapter composables (useActionBar/usePage/useFrame)
 ```
+
+Angular platform uses `platforms/angular/` and keeps the same `src/components/websfc` + `src/composables/websfc` structure, but the entry is `src/main.ts` and the HTML root is `<ns-app></ns-app>`.
 
 - Default dev URL: `http://localhost:3005/` (if the port is taken, it fails directly; set `strictPort` to `false` in `vite.config.ts` to enable fallback).
 
@@ -152,8 +168,9 @@ platforms/web/
   - `npm run dev:android`: run Vite and NS Android debug in parallel.
   - `npm run ios` / `npm run android`: use `ns debug` for debugging builds.
 - Generate and run the Web project:
-  - `npm run dev:web`: run the adapter generator, then enter `platforms/web`, install deps, and start the Web Vite dev server.
-  - On first run, it creates `platforms/web` along with required templates and configuration.
+  - Vue dev server: `npx ns-web vue`
+  - Angular build: `npx ns-web angular`
+  - Auto build (detects framework): `npx ns-web build`
 
 ---
 
@@ -217,7 +234,8 @@ The generator’s `transformContent()` currently performs only necessary code‑
   - Uses `@nativescript/vite` with `vite serve -- --env.hmr` to establish an HMR channel, pushing changes to the device.
   - `patches/nativescript-vue+3.0.1.patch` injects within `app.start`: `globalThis.__NS_VUE_APP__ = app`, helping restore state in deep navigation stacks (e.g., when returning during HMR).
 - Web side:
-  - Independent Vite (`platforms/web/vite.config.ts`) runs on port `3005`, using standard Vue HMR and route refresh.
+  - Vue Vite (`platforms/vue/vite.config.ts`) runs on port `3005`.
+  - Angular Vite (`platforms/angular/vite.config.ts`) runs on port `3006`.
 
 ---
 
@@ -229,8 +247,8 @@ The generator’s `transformContent()` currently performs only necessary code‑
   - Basic web components are provided (`ActionBar/Page/Frame/Grid/Stack/Flex/Wrap/Scroll/Label/Button/Image/HtmlView/ImageCacheIt`). More detailed property‑to‑style mappings will be added later (e.g., `flexDirection/row`, grid rows/columns).
 - Regex‑driven transformation:
   - Edge cases may exist for complex code and templates. Gradually moving to AST‑level transformation is recommended.
-- Generator template duplicate writes:
-  - The generator currently writes `platforms/web/package.json` twice (with different dependency versions). This can be streamlined into a single write to reduce maintenance cost.
+- Generator templates:
+  - The generator writes framework-specific Vite templates and copies adapter components/composables into `src/components/websfc` and `src/composables/websfc`.
 
 ---
 

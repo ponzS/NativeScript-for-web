@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'ImageCacheIt' });
-const props = defineProps<{ src: string }>();
+defineProps<{ src: string }>();
 </script>
 
 <style scoped>

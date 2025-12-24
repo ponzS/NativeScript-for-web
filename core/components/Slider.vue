@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'Slider' });
-const props = defineProps<{ value?: number; min?: number; max?: number; step?: number }>();
+defineProps<{ value?: number; min?: number; max?: number; step?: number }>();
 const emit = defineEmits<{ (e: 'update:value', v: number): void; (e: 'change', v: number): void }>();
 function onInput(e: Event) {
   const v = Number((e.target as HTMLInputElement).value);

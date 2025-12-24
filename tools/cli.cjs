@@ -18,11 +18,11 @@ program
 
 program
   .command('build')
-  .description('生成 Vue 平台并在 platforms/vue 内构建')
+  .description('根据项目配置自动选择框架并在对应 platforms/<framework> 内构建')
   .option('--skip-install', '跳过依赖安装')
   .action(async (opts) => {
-    await createWebPlatform();
-    const webDir = path.join(process.cwd(), 'platforms', 'vue');
+    const res = await createWebPlatform();
+    const webDir = res?.webDir || path.join(process.cwd(), 'platforms', 'vue');
     if (!opts.skipInstall) {
       execSync('npm install', { stdio: 'inherit', cwd: webDir });
     }
@@ -34,12 +34,25 @@ program
   .description('生成 Vue 平台并在 platforms/vue 内启动开发服务器')
   .option('--skip-install', '跳过依赖安装')
   .action(async (opts) => {
-    await createWebPlatform();
+    await createWebPlatform({ framework: 'vue' });
     const webDir = path.join(process.cwd(), 'platforms', 'vue');
     if (!opts.skipInstall) {
       execSync('npm install', { stdio: 'inherit', cwd: webDir });
     }
     execSync('npm run dev', { stdio: 'inherit', cwd: webDir });
+  });
+
+program
+  .command('angular')
+  .description('生成 Angular 平台并在 platforms/angular 内执行构建')
+  .option('--skip-install', '跳过依赖安装')
+  .action(async (opts) => {
+    const res = await createWebPlatform({ framework: 'angular' });
+    const webDir = res?.webDir || path.join(process.cwd(), 'platforms', 'angular');
+    if (!opts.skipInstall) {
+      execSync('npm install', { stdio: 'inherit', cwd: webDir });
+    }
+    execSync('npm run build', { stdio: 'inherit', cwd: webDir });
   });
 
 program

@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'Image' });
-const props = defineProps<{ src: string; stretch?: string }>();
+defineProps<{ src: string; stretch?: string }>();
 </script>
 
 <style scoped>

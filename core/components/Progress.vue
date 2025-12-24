@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'Progress' });
-const props = defineProps<{ value?: number; max?: number }>();
+defineProps<{ value?: number; max?: number }>();
 </script>
 
 <style scoped>

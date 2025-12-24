@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'WebView' });
-const props = defineProps<{ src?: string }>();
+defineProps<{ src?: string }>();
 </script>
 
 <style scoped>

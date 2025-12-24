@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'HtmlView' });
-const props = defineProps<{ html?: string }>();
+defineProps<{ html?: string }>();
 </script>
 
 <style scoped>

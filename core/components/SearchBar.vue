@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'SearchBar' });
-const props = defineProps<{ text?: string }>();
+defineProps<{ text?: string }>();
 const emit = defineEmits<{ (e: 'update:text', v: string): void; (e: 'submit', v: string): void }>();
 function onInput(e: Event) {
   emit('update:text', (e.target as HTMLInputElement).value);

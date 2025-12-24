@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { getCurrentInstance } from 'vue';
-const props = defineProps<{ text?: string }>();
+defineProps<{ text?: string }>();
 const emit = defineEmits<{ (e: 'tap', evt: MouseEvent): void }>();
 defineOptions({ name: 'NavigationButton' });
 

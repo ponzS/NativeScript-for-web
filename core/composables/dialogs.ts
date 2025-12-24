@@ -1,17 +1,17 @@
-export async function alert(message: string, title?: string, okButtonText?: string) {
+export async function alert(message: string, title?: string, _okButtonText?: string) {
   window.alert(title ? `${title}\n\n${message}` : message);
 }
 
-export async function confirm(message: string, title?: string, okButtonText?: string, cancelButtonText?: string): Promise<boolean> {
+export async function confirm(message: string, title?: string, _okButtonText?: string, _cancelButtonText?: string): Promise<boolean> {
   return window.confirm(title ? `${title}\n\n${message}` : message);
 }
 
-export async function prompt(message: string, defaultText = '', title?: string, okButtonText?: string, cancelButtonText?: string): Promise<{ result: boolean; text: string }> {
+export async function prompt(message: string, defaultText = '', title?: string, _okButtonText?: string, _cancelButtonText?: string): Promise<{ result: boolean; text: string }> {
   const res = window.prompt(title ? `${title}\n\n${message}` : message, defaultText);
   return { result: res !== null, text: res ?? '' };
 }
 
-export async function login(message = '登录', userName = '', password = '', title?: string, okButtonText?: string, cancelButtonText?: string): Promise<{ result: boolean; userName: string; password: string }> {
+export async function login(message = '登录', userName = '', password = '', title?: string, _okButtonText?: string, _cancelButtonText?: string): Promise<{ result: boolean; userName: string; password: string }> {
   const u = window.prompt(title ? `${title}\n\n${message} - 用户名` : `${message} - 用户名`, userName);
   if (u === null) return { result: false, userName: '', password: '' };
   const p = window.prompt(title ? `${title}\n\n${message} - 密码` : `${message} - 密码`, password);

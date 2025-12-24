@@ -4,7 +4,10 @@
 // - Clean platform-specific globals and handlers
 // - Keep template tags intact for custom web components to handle
 
-function transformContent(content, srcPath) {
+function transformContent(content, srcPath, framework = 'vue') {
+  if (framework === 'angular') {
+    return transformAngularContent(content, srcPath);
+  }
   // globals.ts shim for web
   if (srcPath && /globals\.ts$/.test(srcPath)) {
     return "export function initGlobals() { /* web shim: no-op */ }\n";
@@ -86,6 +89,70 @@ function transformContent(content, srcPath) {
   if (content.includes('__ANDROID__') || content.includes('Application.launchEvent')) {
     content = content.replace(/Application\.on[\s\S]*?}\);/g, '');
   }
+
+  return content;
+}
+
+function transformAngularContent(content, srcPath) {
+  if (srcPath && /globals\.ts$/.test(srcPath)) {
+    return "export function initGlobals() { /* web shim: no-op */ }\n";
+  }
+
+  if (srcPath && /polyfills\.ts$/.test(srcPath)) {
+    return '';
+  }
+
+  if (srcPath && /app\.component\.html$/.test(srcPath)) {
+    return content.replace(/<\s*page-router-outlet\s*><\s*\/\s*page-router-outlet\s*>/g, '<router-outlet></router-outlet>');
+  }
+
+  if (srcPath && /main\.ts$/.test(srcPath)) {
+    const routesImport = content.match(/import\s+\{\s*routes\s*\}\s+from\s+['"][^'"]+['"]\s*;?/);
+    const appCompImport = content.match(/import\s+\{\s*AppComponent\s*\}\s+from\s+['"][^'"]+['"]\s*;?/);
+    const needsHttp = /provideNativeScriptHttpClient/.test(content) || /provideHttpClient/.test(content);
+    const hasWithInterceptors = /withInterceptorsFromDi/.test(content);
+
+    const lines = [];
+    lines.push("import 'zone.js';");
+    lines.push("import { bootstrapApplication } from '@angular/platform-browser';");
+    lines.push("import { provideRouter } from '@angular/router';");
+    if (needsHttp) {
+      lines.push(
+        hasWithInterceptors
+          ? "import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';"
+          : "import { provideHttpClient } from '@angular/common/http';"
+      );
+    }
+    if (routesImport) lines.push(routesImport[0].replace(/from\s+['"][^'"]+['"]/, "from './app/app.routes'"));
+    else lines.push("import { routes } from './app/app.routes';");
+    if (appCompImport) lines.push(appCompImport[0].replace(/from\s+['"][^'"]+['"]/, "from './app/app.component'"));
+    else lines.push("import { AppComponent } from './app/app.component';");
+    lines.push("import './app.css';");
+    lines.push('');
+    const providers = [];
+    if (needsHttp) {
+      providers.push(hasWithInterceptors ? 'provideHttpClient(withInterceptorsFromDi())' : 'provideHttpClient()');
+    }
+    providers.push('provideRouter(routes)');
+    lines.push(`bootstrapApplication(AppComponent, { providers: [${providers.join(', ')}] });`);
+    lines.push('');
+    return lines.join('\n');
+  }
+
+  content = content.replace(/import\s+['"]@nativescript\/core\/globals['"];?\n?/g, '');
+  content = content.replace(/import\s+['"]@nativescript\/angular\/polyfills['"];?\n?/g, '');
+
+  content = content.replace(/import\s+[\s\S]*?from\s+['"]@nativescript\/angular['"];?\n?/g, (m) => {
+    if (/^\s*import\s*\{\s*Routes\s*\}\s*from\s*['"]@angular\/router['"]/.test(m)) return m;
+    return m;
+  });
+
+  content = content.replace(/registerElement\([^)]+\);?\n?/g, '');
+
+  content = content.replace(/import\s+\{[\s\S]*?\}\s+from\s+['"]@triniwiz\/nativescript-masonkit\/web['"];?\n?/g, '');
+  content = content.replace(/import\s+\{[\s\S]*?\}\s+from\s+['"]@triniwiz\/nativescript-masonkit['"];?\n?/g, '');
+
+  content = content.replace(/from\s+['"]@nativescript\/core['"]/g, "from 'nativescript-web-adapter'");
 
   return content;
 }

@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'Label' });
-const props = defineProps<{ text?: string }>();
+defineProps<{ text?: string }>();
 </script>
 
 <style scoped>

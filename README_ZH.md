@@ -4,7 +4,7 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 
-本项目是NativeScript-Vue-Vite的“web 适配器”可将原生应用代码一键生成可在浏览器运行的纯 Vue Web 项目（位于 `platforms/web/`）。
+本项目是 NativeScript 的 “web 适配器”，可将原生应用代码一键生成可在浏览器运行的 Web 项目（位于 `platforms/<framework>/`，目前支持 Vue / Angular）。
 
 ---
 
@@ -14,12 +14,24 @@
 npm install nativescript-web-adapter
 ```
 
-编译web模版 - 安装依赖项 - 启动 web 项目开发服务器
+生成 web 模版 - 安装依赖项 - 运行 web 项目
 
-vue
+vue（开发服务器）
 
 ```bash
-npx ns-web dev 
+npx ns-web vue
+```
+
+angular（构建）
+
+```bash
+npx ns-web angular
+```
+
+自动选择（构建，会根据项目依赖自动选择 Vue / Angular）
+
+```bash
+npx ns-web build
 ```
 
 nuxt
@@ -243,4 +255,3 @@ platforms/web/
    - 为转换规则与模板生成增加单元测试与 e2e 测试，保证不同项目结构下的稳定性。
 
 ---
-

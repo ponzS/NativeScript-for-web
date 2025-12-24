@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 defineOptions({ name: 'Button' });
-const emit = defineEmits<{ (e: 'tap', evt: MouseEvent): void }>();
+defineEmits<{ (e: 'tap', evt: MouseEvent): void }>();
 const props = defineProps<{ horizontalAlignment?: string }>();
 
 const btnStyle = computed<Record<string, string>>(() => {

@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'TextView' });
-const props = defineProps<{ text?: string }>();
+defineProps<{ text?: string }>();
 const emit = defineEmits<{ (e: 'update:text', v: string): void; (e: 'change', v: string): void }>();
 function onInput(e: Event) {
   const v = (e.target as HTMLTextAreaElement).value;

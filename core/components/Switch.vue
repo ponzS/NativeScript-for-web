@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'Switch' });
-const props = defineProps<{ checked?: boolean }>();
+defineProps<{ checked?: boolean }>();
 const emit = defineEmits<{ (e: 'update:checked', v: boolean): void; (e: 'change', v: boolean): void }>();
 function onChange(e: Event) {
   const v = (e.target as HTMLInputElement).checked;

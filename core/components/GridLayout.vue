@@ -1,6 +1,6 @@
 <template>
   <div class="ns-grid" :style="gridStyle">
-    <template v-for="(child, idx) in renderedChildren" :key="idx">
+    <template v-for="child in renderedChildren" :key="(child as any)?.key ?? child">
       <component :is="child" />
     </template>
   </div>

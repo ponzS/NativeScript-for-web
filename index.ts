@@ -1,5 +1,6 @@
 import * as core from './core';
 import type { App } from 'vue';
+import * as angular from './angular';
 
 export default {
   install(app: App) {
@@ -14,3 +15,4 @@ export default {
 };
 
 export { core };
+export { angular };

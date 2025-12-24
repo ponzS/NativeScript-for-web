@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'ListPicker' });
-const props = defineProps<{ items: string[]; selectedIndex?: number }>();
+defineProps<{ items: string[]; selectedIndex?: number }>();
 const emit = defineEmits<{ (e: 'update:selectedIndex', v: number): void; (e: 'change', v: number): void }>();
 
 function onChange(e: Event) {
